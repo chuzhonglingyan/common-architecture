@@ -30,12 +30,16 @@ import lombok.extern.slf4j.Slf4j;
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
-    @Resource
-    private RedisRemoteProperties redisProperties;
+
+    @Bean
+    RedisRemoteProperties redisRemoteProperties(){
+        return new RedisRemoteProperties();
+    }
+
 
 
     @Bean(name = "redisTemplate")
-    public <V> RedisTemplate<String, V> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public <V> RedisTemplate<String, V> redisTemplate(RedisConnectionFactory redisConnectionFactory,RedisRemoteProperties redisRemoteProperties) {
         RedisTemplate<String, V> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
@@ -45,8 +49,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisTemplate.setValueSerializer(fastJsonRedisSerializer);
         redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);
         // 设置键（key）的序列化采用StringRedisSerializer。
-        redisTemplate.setKeySerializer(new MyStringSerializer(redisProperties.getKeyPrefix()));
-        redisTemplate.setHashKeySerializer(new MyStringSerializer(redisProperties.getKeyPrefix()));
+        redisTemplate.setKeySerializer(new MyStringSerializer(redisRemoteProperties.getKeyPrefix()));
+        redisTemplate.setHashKeySerializer(new MyStringSerializer(redisRemoteProperties.getKeyPrefix()));
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }

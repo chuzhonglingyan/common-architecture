@@ -3,17 +3,20 @@ package com.yuntian.architecture.redis.config;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.yuntian.architecture.redis.lock.RedissLockUtil;
 import com.yuntian.architecture.redis.lock.RedissonDistributedLocker;
+
 import org.redisson.api.RedissonClient;
 import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.CacheErrorHandler;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+
 import javax.annotation.Resource;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -43,8 +46,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);
         // 设置键（key）的序列化采用StringRedisSerializer。
         redisTemplate.setKeySerializer(new MyStringSerializer(redisProperties.getKeyPrefix()));
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-
+        redisTemplate.setHashKeySerializer(new MyStringSerializer(redisProperties.getKeyPrefix()));
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
@@ -72,7 +74,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         log.info("初始化 -> [{}]", "Redis CacheErrorHandler");
         return new CacheErrorHandler() {
             @Override
-            public void handleCacheGetError(RuntimeException e, Cache cache, Object key) {
+            public void handleCacheGetError( RuntimeException e, Cache cache,Object key) {
                 log.error("Redis occur handleCacheGetError：key -> [{}]", key, e);
             }
 
@@ -93,5 +95,28 @@ public class RedisConfig extends CachingConfigurerSupport {
         };
     }
 
+
+
+    /**
+     * 配置spring boot的注解，进行方法级别的缓存
+     * 使用：进行分割，可以很多显示出层级关系
+     * @return
+     */
+    @Bean
+    @Override
+    public KeyGenerator keyGenerator() {
+        return (target, method, params) -> {
+            StringBuilder sb = new StringBuilder();
+            sb.append(target.getClass().getName());
+            sb.append(":");
+            sb.append(method.getName());
+            for (Object obj : params) {
+                sb.append(":").append(String.valueOf(obj));
+            }
+            String rsToUse = String.valueOf(sb);
+            log.info("自动生成Redis Key -> [{}]", rsToUse);
+            return rsToUse;
+        };
+    }
 
 }

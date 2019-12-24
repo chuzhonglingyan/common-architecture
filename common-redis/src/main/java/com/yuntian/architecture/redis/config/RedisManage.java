@@ -98,4 +98,9 @@ public class RedisManage {
     }
 
 
+    private <V> void hasSet(String key,V v) {
+         redisTemplate.opsForHash().hasKey(key,v);
+    }
+
+
 }

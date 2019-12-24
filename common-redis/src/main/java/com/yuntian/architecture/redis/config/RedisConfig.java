@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Resource
-    private RedisLocalProperties redisProperties;
+    private RedisRemoteProperties redisProperties;
 
 
     @Bean(name = "redisTemplate")

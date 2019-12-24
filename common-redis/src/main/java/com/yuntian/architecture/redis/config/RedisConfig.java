@@ -74,7 +74,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         log.info("初始化 -> [{}]", "Redis CacheErrorHandler");
         return new CacheErrorHandler() {
             @Override
-            public void handleCacheGetError( RuntimeException e, Cache cache,Object key) {
+            public void handleCacheGetError(RuntimeException e, Cache cache, Object key) {
                 log.error("Redis occur handleCacheGetError：key -> [{}]", key, e);
             }
 
@@ -96,10 +96,10 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
 
-
     /**
      * 配置spring boot的注解，进行方法级别的缓存
      * 使用：进行分割，可以很多显示出层级关系
+     *
      * @return
      */
     @Bean
@@ -118,5 +118,6 @@ public class RedisConfig extends CachingConfigurerSupport {
             return rsToUse;
         };
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.yuntian.architecture.redis.util;
+package com.yuntian.architecture.util;
 
 /**
  * @Auther: yuntian

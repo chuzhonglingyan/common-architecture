@@ -44,14 +44,12 @@ public class MyStringSerializer implements RedisSerializer<String> {
         } else {
             saveKey = saveKey.substring(indexOf);
         }
-        logger.info("saveKey:{}", saveKey);
         return saveKey;
     }
 
     @Override
     public byte[] serialize(@Nullable String string) {
         String key = getKeyPrefix() + string;
-        logger.info("key:{},getBytes:{}", key, key.getBytes(charset));
         return (string == null ? null : key.getBytes(charset));
     }
 

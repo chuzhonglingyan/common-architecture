@@ -1,18 +1,16 @@
 package com.yuntian.architecture.datasource.config.addmethod;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
+import java.util.stream.Collectors;
 
 /**
  * 根据 id 逻辑删除数据,并带字段填充功能
@@ -28,36 +26,34 @@ import static java.util.stream.Collectors.toList;
  * @since 2018-11-09
  */
 public class LogicDeleteByIdWithFill extends AbstractMethod {
-
-    /**
-     * mapper 对应的方法名
-     */
-    private static final String MAPPER_METHOD = "deleteByIdWithFill";
+    public LogicDeleteByIdWithFill() {
+    }
 
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-        String sql;
         SqlMethod sqlMethod = SqlMethod.LOGIC_DELETE_BY_ID;
+        String sql;
         if (tableInfo.isLogicDelete()) {
-            List<TableFieldInfo> fieldInfos = tableInfo.getFieldList().stream()
-                    .filter(i -> i.getFieldFill() == FieldFill.UPDATE || i.getFieldFill() == FieldFill.INSERT_UPDATE)
-                    .collect(toList());
+            List<TableFieldInfo> fieldInfos = (List)tableInfo.getFieldList().stream().filter(TableFieldInfo::isWithUpdateFill).collect(Collectors.toList());
             if (CollectionUtils.isNotEmpty(fieldInfos)) {
-                String sqlSet = "SET " + fieldInfos.stream().map(i -> i.getSqlSet(EMPTY)).collect(joining(EMPTY))
-                        + tableInfo.getLogicDeleteSql(false, true);
-                sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), sqlSet, tableInfo.getKeyColumn(),
-                        tableInfo.getKeyProperty(), tableInfo.getLogicDeleteSql(true, false));
+                String sqlSet = "SET " + (String)fieldInfos.stream().map((i) -> {
+                    return i.getSqlSet("");
+                }).collect(Collectors.joining("")) + tableInfo.getLogicDeleteSql(false, false);
+                sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), sqlSet, tableInfo.getKeyColumn(), tableInfo.getKeyProperty(), tableInfo.getLogicDeleteSql(true, true));
             } else {
-                sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), sqlLogicSet(tableInfo),
-                        tableInfo.getKeyColumn(), tableInfo.getKeyProperty(),
-                        tableInfo.getLogicDeleteSql(true, false));
+                sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), this.sqlLogicSet(tableInfo), tableInfo.getKeyColumn(), tableInfo.getKeyProperty(), tableInfo.getLogicDeleteSql(true, true));
             }
         } else {
             sqlMethod = SqlMethod.DELETE_BY_ID;
-            sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), tableInfo.getKeyColumn(),
-                    tableInfo.getKeyProperty());
+            sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), tableInfo.getKeyColumn(), tableInfo.getKeyProperty());
         }
-        SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-        return addUpdateMappedStatement(mapperClass, modelClass, MAPPER_METHOD, sqlSource);
+
+        SqlSource sqlSource = this.languageDriver.createSqlSource(this.configuration, sql, modelClass);
+        return this.addUpdateMappedStatement(mapperClass, modelClass, this.getMethod(sqlMethod), sqlSource);
+    }
+
+    @Override
+    public String getMethod(SqlMethod sqlMethod) {
+        return "deleteByIdWithFill";
     }
 }

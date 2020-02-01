@@ -1,5 +1,8 @@
 package com.yuntian.architecture.datasource;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.util.Date;
 
 import lombok.Data;
@@ -18,6 +21,7 @@ public class BaseEntity {
     /**
      * 创建人
      */
+    @TableField(fill = FieldFill.INSERT)
     private Long createId;
 
     /**
@@ -28,6 +32,7 @@ public class BaseEntity {
     /**
      * 更新人
      */
+    @TableField(fill = FieldFill.UPDATE)
     private Long updateId;
 
     /**

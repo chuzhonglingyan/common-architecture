@@ -14,15 +14,15 @@ public class SqlScriptStrongUtils implements Constants {
 
     public static String convertForeach(final String sqlScript, final String collection, final String index, final String item, final String separator) {
         StringBuilder sb = new StringBuilder("<foreach");
-        if (StringUtils.isNotEmpty(collection)) {
+        if (StringUtils.isNotBlank(collection)) {
             sb.append(" collection=\"").append(collection).append("\"");
         }
 
-        if (StringUtils.isNotEmpty(index)) {
+        if (StringUtils.isNotBlank(index)) {
             sb.append(" index=\"").append(index).append("\"");
         }
 
-        if (StringUtils.isNotEmpty(item)) {
+        if (StringUtils.isNotBlank(item)) {
             sb.append(" item=\"").append(item).append("\"");
         }
         return sb.append(">").append("\n").append(sqlScript).append("\n").append("</foreach>").toString();

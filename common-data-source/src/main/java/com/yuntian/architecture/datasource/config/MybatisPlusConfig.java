@@ -33,12 +33,10 @@ public class MybatisPlusConfig {
     @Bean
     public ISqlInjector logicSqlInjector() {
         return new DefaultSqlInjector() {
-            /**
-             * 注入自定义全局方法
-             */
+
             @Override
-            public List<AbstractMethod> getMethodList() {
-                List<AbstractMethod> methodList = super.getMethodList();
+            public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
+                List<AbstractMethod> methodList = super.getMethodList(mapperClass);
                 methodList.add(new LogicDeleteByIdWithFill());
                 methodList.add(new LogicDeleteByIdsWithFill());
                 return methodList;

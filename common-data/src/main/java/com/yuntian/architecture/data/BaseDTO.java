@@ -1,4 +1,6 @@
-package com.yuntian.architecture.datasource;
+package com.yuntian.architecture.data;
+
+import java.io.Serializable;
 
 import lombok.Data;
 
@@ -8,7 +10,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class BaseDTO {
+public class BaseDTO implements Serializable {
 
     /**
      * 每页显示条数，默认 10

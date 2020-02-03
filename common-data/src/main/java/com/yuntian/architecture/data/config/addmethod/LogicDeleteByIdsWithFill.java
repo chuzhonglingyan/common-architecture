@@ -1,11 +1,11 @@
-package com.yuntian.architecture.datasource.config.addmethod;
+package com.yuntian.architecture.data.config.addmethod;
 
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.core.toolkit.sql.SqlScriptUtils;
-import com.yuntian.architecture.datasource.util.SqlScriptStrongUtils;
+import com.yuntian.architecture.data.util.SqlScriptStrongUtils;
 
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;

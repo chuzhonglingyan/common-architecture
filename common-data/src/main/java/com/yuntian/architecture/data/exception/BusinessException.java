@@ -1,4 +1,4 @@
-package com.yuntian.architecture.datasource.exception;
+package com.yuntian.architecture.data.exception;
 
 import java.io.Serializable;
 

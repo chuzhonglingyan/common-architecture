@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.yuntian.architecture.datasource.config.MybatisPlusConfig
+com.yuntian.architecture.data.config.MybatisPlusConfig

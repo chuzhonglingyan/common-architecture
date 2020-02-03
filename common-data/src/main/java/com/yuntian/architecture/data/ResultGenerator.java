@@ -1,4 +1,4 @@
-package com.yuntian.architecture.datasource;
+package com.yuntian.architecture.data;
 
 /**
  * 响应结果生成工具

@@ -1,8 +1,9 @@
-package com.yuntian.architecture.datasource;
+package com.yuntian.architecture.data;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class BaseEntity {
+public class BaseEntity implements Serializable {
 
 
     private Long id;

@@ -1,7 +1,7 @@
-package com.yuntian.architecture.datasource.util;
+package com.yuntian.architecture.data.util;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.yuntian.architecture.datasource.exception.BusinessException;
+import com.yuntian.architecture.data.exception.BusinessException;
 
 import org.apache.commons.lang3.StringUtils;
 

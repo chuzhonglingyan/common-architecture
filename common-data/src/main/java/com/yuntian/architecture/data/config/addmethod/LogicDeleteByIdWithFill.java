@@ -1,4 +1,4 @@
-package com.yuntian.architecture.datasource.config.addmethod;
+package com.yuntian.architecture.data.config.addmethod;
 
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;

@@ -5,9 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>common-data-source</module>
+        <module>common-data</module>
         <module>common-redis</module>
         <module>common-log</module>
+        <module>common-datasource</module>
     </modules>
 
     <parent>

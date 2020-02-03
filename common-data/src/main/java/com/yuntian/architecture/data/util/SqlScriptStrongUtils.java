@@ -1,4 +1,4 @@
-package com.yuntian.architecture.datasource.util;
+package com.yuntian.architecture.data.util;
 
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;

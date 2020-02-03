@@ -1,11 +1,11 @@
-package com.yuntian.architecture.datasource.config;
+package com.yuntian.architecture.data.config;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.yuntian.architecture.datasource.config.addmethod.LogicDeleteByIdWithFill;
-import com.yuntian.architecture.datasource.config.addmethod.LogicDeleteByIdsWithFill;
+import com.yuntian.architecture.data.config.addmethod.LogicDeleteByIdWithFill;
+import com.yuntian.architecture.data.config.addmethod.LogicDeleteByIdsWithFill;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.yuntian.architecture.datasource;
+package com.yuntian.architecture.data;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 

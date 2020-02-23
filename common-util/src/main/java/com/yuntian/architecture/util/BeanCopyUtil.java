@@ -1,7 +1,7 @@
 package com.yuntian.architecture.util;
 
 
-import org.springframework.cglib.beans.BeanCopier;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @Auther: yuntian
@@ -12,8 +12,7 @@ public class BeanCopyUtil {
 
 
     public static <F, T> void copyProperties(F source, T target) {
-        BeanCopier copier = BeanCopier.create(source.getClass(), target.getClass(), false);
-        copier.copy(source,target,null);
+        BeanUtils.copyProperties(source,target);
     }
 
     public static <F, T> T copyProperties(F source, Class<T> targetClass) {

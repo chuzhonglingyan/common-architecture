@@ -7,31 +7,41 @@ public enum ResultCode {
     /**
      * 成功
      */
-    SUCCESS(200),
+    SUCCESS(200, "成功"),
     /**
      * 失败
      */
-    FAIL(400),
+    FAIL(400, "参数有误"),
     /**
-     * 未认证
+     * 未登录
      */
-    UNAUTHORIZED(401),
+    UN_LOGIN(401, "登录失效"),
+    /**
+     * 没有权限
+     */
+    UN_AUTHORITY(402, "无访问接口的权限"),
     /**
      * 接口不存在
      */
-    NOT_FOUND(404),
+    NOT_FOUND(404, "接口不存在"),
     /**
      * 服务器内部错误
      */
-    INTERNAL_SERVER_ERROR(500);
+    INTERNAL_SERVER_ERROR(500, "服务器内部错误");
 
     private final int code;
+    private String msg;
 
-    ResultCode(int code) {
+    ResultCode(int code, String msg) {
         this.code = code;
+        this.msg = msg;
     }
 
     public int code() {
         return code;
+    }
+
+    public String msg() {
+        return msg;
     }
 }

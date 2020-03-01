@@ -19,7 +19,9 @@ public class BaseDTO implements Serializable {
     /**
      * 当前页
      */
-    private Long current = 1L;
+    private Long current;
+
+    private Long page;
 
 
     /**
@@ -32,4 +34,17 @@ public class BaseDTO implements Serializable {
      */
     private Long updateId;
 
+    public Long getCurrent() {
+        if (current == null) {
+            if (page==null){
+                return 1L;
+            }
+            return page;
+        }
+        return current;
+    }
+
+    public void setCurrent(Long current) {
+        this.current = current;
+    }
 }

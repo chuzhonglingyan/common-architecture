@@ -6,16 +6,23 @@ import com.yuntian.architecture.redis.lock.RedissonDistributedLocker;
 
 import org.redisson.api.RedissonClient;
 import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 
-import javax.annotation.Resource;
+import java.time.Duration;
+
+import javax.annotation.Nullable;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,14 +39,13 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 
     @Bean
-    RedisRemoteProperties redisRemoteProperties(){
+    RedisRemoteProperties redisRemoteProperties() {
         return new RedisRemoteProperties();
     }
 
 
-
     @Bean(name = "redisTemplate")
-    public <V> RedisTemplate<String, V> redisTemplate(RedisConnectionFactory redisConnectionFactory,RedisRemoteProperties redisRemoteProperties) {
+    public <V> RedisTemplate<String, V> redisTemplate(RedisConnectionFactory redisConnectionFactory, RedisRemoteProperties redisRemoteProperties) {
         RedisTemplate<String, V> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
@@ -55,6 +61,19 @@ public class RedisConfig extends CachingConfigurerSupport {
         return redisTemplate;
     }
 
+
+    /**
+     * 缓存管理器
+     */
+    @Bean
+    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, RedisRemoteProperties redisRemoteProperties) {
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(
+                Duration.ofMinutes(30)).serializeKeysWith(RedisSerializationContext.SerializationPair
+                .fromSerializer(new MyStringSerializer(redisRemoteProperties.getKeyPrefix()))).serializeValuesWith(RedisSerializationContext
+                .SerializationPair.fromSerializer(new FastJsonRedisSerializer<>())).disableCachingNullValues();
+        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
+        return new RedisCacheManager(redisCacheWriter, config);
+    }
 
     @Bean
     RedisManage redisManage() {
@@ -78,22 +97,22 @@ public class RedisConfig extends CachingConfigurerSupport {
         log.info("初始化 -> [{}]", "Redis CacheErrorHandler");
         return new CacheErrorHandler() {
             @Override
-            public void handleCacheGetError(RuntimeException e, Cache cache, Object key) {
+            public void handleCacheGetError(@Nullable RuntimeException e, @Nullable Cache cache, @Nullable Object key) {
                 log.error("Redis occur handleCacheGetError：key -> [{}]", key, e);
             }
 
             @Override
-            public void handleCachePutError(RuntimeException e, Cache cache, Object key, Object value) {
+            public void handleCachePutError(@Nullable RuntimeException e, @Nullable Cache cache, @Nullable Object key, Object value) {
                 log.error("Redis occur handleCachePutError：key -> [{}]；value -> [{}]", key, value, e);
             }
 
             @Override
-            public void handleCacheEvictError(RuntimeException e, Cache cache, Object key) {
+            public void handleCacheEvictError(@Nullable RuntimeException e, @Nullable Cache cache, @Nullable Object key) {
                 log.error("Redis occur handleCacheEvictError：key -> [{}]", key, e);
             }
 
             @Override
-            public void handleCacheClearError(RuntimeException e, Cache cache) {
+            public void handleCacheClearError(@Nullable RuntimeException e, @Nullable Cache cache) {
                 log.error("Redis occur handleCacheClearError：", e);
             }
         };

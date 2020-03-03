@@ -19,10 +19,9 @@ import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.lang.NonNull;
 
 import java.time.Duration;
-
-import javax.annotation.Nullable;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -97,22 +96,22 @@ public class RedisConfig extends CachingConfigurerSupport {
         log.info("初始化 -> [{}]", "Redis CacheErrorHandler");
         return new CacheErrorHandler() {
             @Override
-            public void handleCacheGetError(@Nullable RuntimeException e, @Nullable Cache cache, @Nullable Object key) {
+            public void handleCacheGetError(@NonNull RuntimeException e, @NonNull Cache cache, @NonNull Object key) {
                 log.error("Redis occur handleCacheGetError：key -> [{}]", key, e);
             }
 
             @Override
-            public void handleCachePutError(@Nullable RuntimeException e, @Nullable Cache cache, @Nullable Object key, Object value) {
+            public void handleCachePutError(@NonNull RuntimeException e, @NonNull Cache cache, @NonNull Object key, Object value) {
                 log.error("Redis occur handleCachePutError：key -> [{}]；value -> [{}]", key, value, e);
             }
 
             @Override
-            public void handleCacheEvictError(@Nullable RuntimeException e, @Nullable Cache cache, @Nullable Object key) {
+            public void handleCacheEvictError(@NonNull RuntimeException e, @NonNull Cache cache, @NonNull Object key) {
                 log.error("Redis occur handleCacheEvictError：key -> [{}]", key, e);
             }
 
             @Override
-            public void handleCacheClearError(@Nullable RuntimeException e, @Nullable Cache cache) {
+            public void handleCacheClearError(@NonNull RuntimeException e, @NonNull Cache cache) {
                 log.error("Redis occur handleCacheClearError：", e);
             }
         };

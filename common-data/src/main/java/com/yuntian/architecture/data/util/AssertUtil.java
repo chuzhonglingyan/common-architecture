@@ -1,9 +1,8 @@
 package com.yuntian.architecture.data.util;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.yuntian.architecture.data.exception.BusinessException;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 
@@ -15,36 +14,34 @@ import java.util.Collection;
 public class AssertUtil {
 
 
-
-    public static void  isNotEmpty(Collection collection,String msg){
-        if (CollectionUtils.isEmpty(collection)){
+    public static void isNotEmpty(Collection collection, String msg) {
+        if (CollectionUtils.isEmpty(collection)) {
             BusinessException.throwMessage(msg);
         }
     }
 
-    public static void  isEmpty(Collection collection,String msg){
-        if (CollectionUtils.isNotEmpty(collection)){
-          BusinessException.throwMessage(msg);
-        }
-    }
-
-
-
-    public static void  isNotBlank(String text,String msg){
-        if (StringUtils.isBlank(text)){
+    public static void isEmpty(Collection collection, String msg) {
+        if (CollectionUtils.isNotEmpty(collection)) {
             BusinessException.throwMessage(msg);
         }
     }
 
 
-    public static void  isNotNull(Object object,String msg){
-        if (object==null){
+    public static void isNotBlank(String text, String msg) {
+        if (StringUtils.isBlank(text)) {
             BusinessException.throwMessage(msg);
         }
     }
 
-    public static void  isNotTrue(boolean flag,String msg){
-        if (!flag){
+
+    public static void isNotNull(Object object, String msg) {
+        if (object == null) {
+            BusinessException.throwMessage(msg);
+        }
+    }
+
+    public static void isNotTrue(boolean flag, String msg) {
+        if (!flag) {
             BusinessException.throwMessage(msg);
         }
     }

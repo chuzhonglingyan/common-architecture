@@ -1,4 +1,4 @@
-package com.yuntian.architecture.util;
+package com.yuntian.architecture.data.util;
 
 
 import org.springframework.beans.BeanUtils;

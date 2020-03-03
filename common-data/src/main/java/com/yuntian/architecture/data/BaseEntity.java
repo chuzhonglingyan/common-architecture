@@ -9,9 +9,9 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * @Auther: yuntian
- * @Date: 2019/6/18 0018 20:57
- * @Description:
+ * @author yuntian
+ * @date 2019/6/18 0018 20:57
+ * @description
  */
 @Data
 public class BaseEntity implements Serializable {

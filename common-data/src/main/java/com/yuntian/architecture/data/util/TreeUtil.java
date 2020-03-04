@@ -1,7 +1,8 @@
 package com.yuntian.architecture.data.util;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.yuntian.architecture.data.BaseTreeEntity;
-import com.yuntian.architecture.data.BaseTreeVO;
+import com.yuntian.architecture.data.ITree;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,11 +18,18 @@ import java.util.stream.Collectors;
 public class TreeUtil {
 
 
-    public static <T extends BaseTreeEntity, V extends BaseTreeVO> List<V> convertList(List<T> list, Class<V> targetClass) {
-        return BeanCopyUtil.copyListProperties(list, targetClass);
+    public static <T extends BaseTreeEntity, V extends ITree<V>> List<V> buildTree(List<T> list, Class<V> targetClass) {
+        if (CollectionUtils.isEmpty(list)){
+            return new ArrayList<>();
+        }
+        List<V> vList = convertList(list, targetClass);
+        return buildTree(vList);
     }
 
-    public static <T extends BaseTreeVO> List<T> buildTree(List<T> list) {
+    public static <T extends ITree<T>> List<T> buildTree(List<T> list) {
+        if (CollectionUtils.isEmpty(list)){
+            return new ArrayList<>();
+        }
         List<T> treeList = new ArrayList<>();
         Set<Long> ids = new HashSet<>();
         for (T treeVO : list) {
@@ -43,4 +51,10 @@ public class TreeUtil {
         }
         return treeList;
     }
+
+    public static <T extends BaseTreeEntity,V extends ITree<V>> List<V> convertList(List<T> list, Class<V> targetClass) {
+        return BeanCopyUtil.copyListProperties(list, targetClass);
+    }
+
+
 }

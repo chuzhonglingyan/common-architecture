@@ -10,10 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author Administrator
- * @auther: yuntian
- * @date: 2020/3/4 0004 00:30
- * @description:
+ * @author yuntian
+ * @date 2020/3/4 0004 00:30
+ * @description
  */
 public class TreeUtil {
 

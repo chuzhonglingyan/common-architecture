@@ -9,7 +9,7 @@ import java.util.Collection;
  * @Date: 2019/6/30 0030 16:00
  * @Description:
  */
-public interface MyBaseMapper<T>   extends BaseMapper<T> {
+public interface MyBaseMapper<T> extends BaseMapper<T> {
 
     int deleteByIdWithFill(T entity);
 

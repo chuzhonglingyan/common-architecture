@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
  */
 public class SqlScriptStrongUtils implements Constants {
 
-    public static  final String LIST ="list";
+    public static final String LIST = "list";
 
     public static String convertForeach(final String sqlScript, final String collection, final String index, final String item, final String separator) {
         StringBuilder sb = new StringBuilder("<foreach");

@@ -36,7 +36,7 @@ public class BaseDTO implements Serializable {
 
     public Long getCurrent() {
         if (current == null) {
-            if (page==null){
+            if (page == null) {
                 return 1L;
             }
             return page;

@@ -4,6 +4,7 @@ package com.yuntian.architecture.redis.config;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.yuntian.architecture.redis.util.GenericsUtils;
+
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 

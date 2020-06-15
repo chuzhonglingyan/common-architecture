@@ -5,6 +5,7 @@ package com.yuntian.architecture.redis.lock;
  * @Date: 2019/11/19 0019 21:04
  * @Description:
  */
+
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 
@@ -29,7 +30,7 @@ public class RedissonDistributedLocker implements DistributedLocker {
     }
 
     @Override
-    public RLock lock(String lockKey, TimeUnit unit ,int timeout) {
+    public RLock lock(String lockKey, TimeUnit unit, int timeout) {
         RLock lock = redissonClient.getLock(lockKey);
         lock.lock(timeout, unit);
         return lock;

@@ -19,7 +19,7 @@ public class TreeUtil {
 
 
     public static <T extends BaseTreeEntity, V extends ITree<V>> List<V> buildTree(List<T> list, Class<V> targetClass) {
-        if (CollectionUtils.isEmpty(list)){
+        if (CollectionUtils.isEmpty(list)) {
             return new ArrayList<>();
         }
         List<V> vList = convertList(list, targetClass);
@@ -27,7 +27,7 @@ public class TreeUtil {
     }
 
     public static <T extends ITree<T>> List<T> buildTree(List<T> list) {
-        if (CollectionUtils.isEmpty(list)){
+        if (CollectionUtils.isEmpty(list)) {
             return new ArrayList<>();
         }
         List<T> treeList = new ArrayList<>();
@@ -52,7 +52,7 @@ public class TreeUtil {
         return treeList;
     }
 
-    public static <T extends BaseTreeEntity,V extends ITree<V>> List<V> convertList(List<T> list, Class<V> targetClass) {
+    public static <T extends BaseTreeEntity, V extends ITree<V>> List<V> convertList(List<T> list, Class<V> targetClass) {
         return BeanCopyUtil.copyListProperties(list, targetClass);
     }
 

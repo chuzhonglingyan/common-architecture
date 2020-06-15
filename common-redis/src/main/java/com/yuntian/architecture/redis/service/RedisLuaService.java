@@ -8,7 +8,7 @@ package com.yuntian.architecture.redis.service;
 public interface RedisLuaService {
 
     /**
-     * @param key  限制条件
+     * @param key    限制条件
      * @param times  次数
      * @param expire 时间段
      * @return

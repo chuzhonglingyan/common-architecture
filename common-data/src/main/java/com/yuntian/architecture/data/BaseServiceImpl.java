@@ -15,12 +15,12 @@ public class BaseServiceImpl<M extends MyBaseMapper<T>, T> extends ServiceImpl<M
 
     @Override
     public boolean deleteByIdWithFill(T entity) {
-        return getBaseMapper().deleteByIdWithFill(entity)==1;
+        return getBaseMapper().deleteByIdWithFill(entity) == 1;
     }
 
     @Override
     public boolean deleteByIdsWithFill(Collection<T> entityList) {
-        return getBaseMapper().deleteByIdsWithFill(entityList)==entityList.size();
+        return getBaseMapper().deleteByIdsWithFill(entityList) == entityList.size();
     }
 
 }

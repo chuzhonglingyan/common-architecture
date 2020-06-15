@@ -13,7 +13,7 @@ public interface ITree<T> {
 
     Long getPid();
 
-    List<T>  getChildren();
+    List<T> getChildren();
 
     void setChildren(List<T> list);
 }

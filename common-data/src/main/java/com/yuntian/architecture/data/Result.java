@@ -38,7 +38,6 @@ public class Result<T> {
     }
 
 
-
     public int getCode() {
         return code;
     }
@@ -67,7 +66,7 @@ public class Result<T> {
 
     public Result setState(Integer state) {
         this.state = state;
-        return  this;
+        return this;
     }
 
     public boolean isSuccess() {
@@ -76,7 +75,7 @@ public class Result<T> {
 
     public Result setSuccess(boolean success) {
         this.success = success;
-        return  this;
+        return this;
     }
 
     @Override

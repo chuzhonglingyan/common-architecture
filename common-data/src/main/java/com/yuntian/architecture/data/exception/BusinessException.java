@@ -54,11 +54,11 @@ public class BusinessException extends RuntimeException implements Serializable 
     }
 
 
-    public static void throwMessage(String msg){
-        throwMessage(500,msg);
+    public static void throwMessage(String msg) {
+        throwMessage(500, msg);
     }
 
-    public static void throwMessage(int code,String msg){
-        throw new BusinessException(code,msg);
+    public static void throwMessage(int code, String msg) {
+        throw new BusinessException(code, msg);
     }
 }
